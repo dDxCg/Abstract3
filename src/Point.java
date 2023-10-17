@@ -8,6 +8,10 @@ public class Point {
         this.pointY = pointY;
     }
 
+    public Point() {
+
+    }
+
     public double getPointX() {
         return pointX;
     }

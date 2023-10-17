@@ -1,11 +1,21 @@
 public class Circle extends Shape {
     protected Point center;
     protected double radius;
+    protected Point Pos;
+    public static final double maxRanRadius = 5;
+    public static final double minRanRadius = 1;
 
     public static final double PI = Math.PI;
 
+    /** random constructor. */
     public Circle() {
         super();
+        Random ran = new Random();
+        this.radius = ran.double_Random(minRanRadius, maxRanRadius);
+        double xPos = ran.double_Random(0, GraphicShapes.D_LENGTH);
+        double yPos = ran.double_Random(0, GraphicShapes.D_WIDTH);
+        Pos = new Point(xPos, yPos);
+        this.center = new Point(xPos - radius/Math.sqrt(2), yPos - radius/Math.sqrt(2));
     }
 
     /** func. */

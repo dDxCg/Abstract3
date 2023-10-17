@@ -2,9 +2,17 @@ public class Rectangle extends Shape {
     protected Point topLeft;
     protected double width;
     protected double length;
+    public static final double maxSide = 5;
+    public static final double minSide = 1;
 
     public Rectangle() {
         super();
+        Random ran = new Random();
+        this.width = ran.double_Random(minSide, maxSide);
+        this.length = ran.double_Random(minSide, maxSide);
+        double xPos = ran.double_Random(0, GraphicShapes.D_LENGTH - length);
+        double yPos = ran.double_Random(0, GraphicShapes.D_WIDTH - width);
+        topLeft = new Point(xPos, yPos);
     }
 
     /** func. */

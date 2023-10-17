@@ -1,6 +1,9 @@
 public class Square extends Rectangle {
     public Square() {
         super();
+        Random ran = new Random();
+        double side = ran.double_Random(Rectangle.minSide, Rectangle.maxSide);
+        setSide(side);
     }
 
     public Square(double side) {
