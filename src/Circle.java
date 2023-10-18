@@ -2,8 +2,8 @@ public class Circle extends Shape {
     protected Point center;
     protected double radius;
     protected Point Pos;
-    public static final double maxRanRadius = 5;
-    public static final double minRanRadius = 1;
+    public static final double maxRanRadius = 10;
+    public static final double minRanRadius = 3;
 
     public static final double PI = Math.PI;
 
@@ -12,8 +12,8 @@ public class Circle extends Shape {
         super();
         Random ran = new Random();
         this.radius = ran.double_Random(minRanRadius, maxRanRadius);
-        double xPos = ran.double_Random(0, GraphicShapes.D_LENGTH);
-        double yPos = ran.double_Random(0, GraphicShapes.D_WIDTH);
+        double xPos = ran.double_Random(radius * 2, GraphicShapes.D_LENGTH);
+        double yPos = ran.double_Random(radius * 2, GraphicShapes.D_WIDTH);
         Pos = new Point(xPos, yPos);
         this.center = new Point(xPos - radius/Math.sqrt(2), yPos - radius/Math.sqrt(2));
     }
@@ -51,6 +51,7 @@ public class Circle extends Shape {
     public String toString() {
         String out = "";
         out += "Circle[center=" + center.toString();
+        out += ",Pos=" + this.Pos.toString();
         out += ",radius=" + radius;
         out += ",color=" + super.getColor();
         out += ",filled=" + super.isFilled() + "]";
@@ -89,5 +90,13 @@ public class Circle extends Shape {
 
     public void setRadius(double radius) {
         this.radius = radius;
+    }
+
+    public Point getPos() {
+        return Pos;
+    }
+
+    public void setPos(Point pos) {
+        Pos = pos;
     }
 }

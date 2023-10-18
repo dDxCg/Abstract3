@@ -65,4 +65,9 @@ public class Square extends Rectangle {
         out += ",filled=" + super.isFilled() + "]";
         return out;
     }
+
+    @Override
+    public Point getTopLeft() {
+        return super.getTopLeft();
+    }
 }

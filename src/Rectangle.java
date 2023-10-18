@@ -1,8 +1,10 @@
+import com.sun.nio.sctp.HandlerResult;
+
 public class Rectangle extends Shape {
     protected Point topLeft;
     protected double width;
     protected double length;
-    public static final double maxSide = 5;
+    public static final double maxSide = 10;
     public static final double minSide = 1;
 
     public Rectangle() {
