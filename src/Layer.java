@@ -47,8 +47,8 @@ public class Layer extends JPanel {
             Color color = ran.random_Color();
             g.setColor(color);
             if (shapes.get(i) instanceof Circle) {
-                int xPos = (int) (((Circle) shapes.get(i)).getPos().getPointX());
-                int yPos = (int) (((Circle) shapes.get(i)).getPos().getPointY());
+                int xPos = (int) (10 * ((Circle) shapes.get(i)).getPos().getPointX());
+                int yPos = (int) (10 * ((Circle) shapes.get(i)).getPos().getPointY());
                 int radius = (int) (10 * ((Circle) shapes.get(i)).getRadius());
                 if (color == Color.white) {
                     g.setColor(Color.black);
@@ -57,8 +57,8 @@ public class Layer extends JPanel {
                     g.fillOval(xPos, yPos, radius, radius);
                 }
             } else if (shapes.get(i) instanceof Rectangle) {
-                int xPos = (int) (((Rectangle) shapes.get(i)).getTopLeft().getPointX());
-                int yPos = (int) (((Rectangle) shapes.get(i)).getTopLeft().getPointY());
+                int xPos = (int) (10 * ((Rectangle) shapes.get(i)).getTopLeft().getPointX());
+                int yPos = (int) (10 * ((Rectangle) shapes.get(i)).getTopLeft().getPointY());
                 int width = (int) (10 * ((Rectangle) shapes.get(i)).getWidth());
                 int length = (int) (10 * ((Rectangle) shapes.get(i)).getLength());
                 if (color == Color.white) {
@@ -68,8 +68,8 @@ public class Layer extends JPanel {
                     g.fillRect(xPos, yPos, length, width);
                 }
             } else if (shapes.get(i) instanceof Square) {
-                int xPos = (int) (((Square) shapes.get(i)).getTopLeft().getPointX());
-                int yPos = (int) (((Square) shapes.get(i)).getTopLeft().getPointY());
+                int xPos = (int) (10 * ((Square) shapes.get(i)).getTopLeft().getPointX());
+                int yPos = (int) (10 * ((Square) shapes.get(i)).getTopLeft().getPointY());
                 int side = (int) (10 * ((Square) shapes.get(i)).getSide());
                 if (color == Color.white) {
                     g.setColor(Color.black);

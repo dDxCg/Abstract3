@@ -12,8 +12,8 @@ public class Circle extends Shape {
         super();
         Random ran = new Random();
         this.radius = ran.double_Random(minRanRadius, maxRanRadius);
-        double xPos = ran.double_Random(radius * 2, GraphicShapes.D_LENGTH);
-        double yPos = ran.double_Random(radius * 2, GraphicShapes.D_WIDTH);
+        double xPos = ran.double_Random(0, GraphicShapes.D_LENGTH - radius * 2);
+        double yPos = ran.double_Random(0, GraphicShapes.D_WIDTH - radius * 2);
         Pos = new Point(xPos, yPos);
         this.center = new Point(xPos - radius/Math.sqrt(2), yPos - radius/Math.sqrt(2));
     }
