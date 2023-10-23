@@ -1,12 +1,8 @@
 import javax.swing.*;
 
 public class GraphicShapes {
-    public static final int I_WIDTH = 600;
-    public static final int I_LENGTH = 600;
-    public static final double D_WIDTH = 60;
-    public static final double D_LENGTH = 60;
-    public static final double maxVel = 3;
-    public static final double minVel = 1;
+    public static final int WIDTH = 600;
+    public static final int LENGTH = 600;
 
     public static void main(String []args) {
         Layer layer = new Layer();
@@ -17,10 +13,10 @@ public class GraphicShapes {
         layer.addShape(shape2);
         layer.addShape(shape3);
         JFrame frame = new JFrame("Testing");
-        frame.setSize(I_LENGTH, I_WIDTH);
+        frame.add(layer);
+        frame.setSize(LENGTH, WIDTH);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(layer);
         System.out.println(layer.getInfo());
         frame.setVisible(true);
     }

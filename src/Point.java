@@ -1,9 +1,9 @@
 public class Point {
-    private double pointX;
-    private double pointY;
+    private int pointX;
+    private int pointY;
 
     /** func. */
-    public Point(double pointX, double pointY) {
+    public Point(int pointX, int pointY) {
         this.pointX = pointX;
         this.pointY = pointY;
     }
@@ -12,19 +12,19 @@ public class Point {
 
     }
 
-    public double getPointX() {
+    public int getPointX() {
         return pointX;
     }
 
-    public void setPointX(double pointX) {
+    public void setPointX(int pointX) {
         this.pointX = pointX;
     }
 
-    public double getPointY() {
+    public int getPointY() {
         return pointY;
     }
 
-    public void setPointY(double pointY) {
+    public void setPointY(int pointY) {
         this.pointY = pointY;
     }
 

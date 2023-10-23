@@ -1,9 +1,10 @@
+import java.awt.*;
+
 public class Circle extends Shape {
     protected Point center;
-    protected double radius;
-    protected Point Pos;
-    public static final double maxRanRadius = 10;
-    public static final double minRanRadius = 3;
+    protected int radius;
+    public static final int maxRanRadius = 50;
+    public static final int minRanRadius = 20;
 
     public static final double PI = Math.PI;
 
@@ -11,27 +12,29 @@ public class Circle extends Shape {
     public Circle() {
         super();
         Random ran = new Random();
-        this.radius = ran.double_Random(minRanRadius, maxRanRadius);
-        double xPos = ran.double_Random(0, GraphicShapes.D_LENGTH - radius * 2);
-        double yPos = ran.double_Random(0, GraphicShapes.D_WIDTH - radius * 2);
-        Pos = new Point(xPos, yPos);
-        this.center = new Point(xPos - radius/Math.sqrt(2), yPos - radius/Math.sqrt(2));
+        this.radius = ran.int_Random(minRanRadius, maxRanRadius);
+        int xPos = ran.int_Random(0, GraphicShapes.LENGTH - radius * 2);
+        int yPos = ran.int_Random(0, GraphicShapes.WIDTH - radius * 2);
+        topLeft = new Point(xPos, yPos);
+        this.center = new Point((int) (xPos - radius/Math.sqrt(2)), (int) (yPos - radius/Math.sqrt(2)));
+        this.velX = ran.int_Random(Shape.MIN_VEL, Shape.MAX_VEL);
+        this.velY = ran.int_Random(Shape.MIN_VEL, Shape.MAX_VEL);
     }
 
     /** func. */
-    public Circle(double radius) {
+    public Circle(int radius) {
         super();
         this.radius = radius;
     }
 
     /** func. */
-    public Circle(double radius, String color, boolean filled) {
+    public Circle(int radius, Color color, boolean filled) {
         super(color, filled);
         this.radius = radius;
     }
 
     /** func. */
-    public Circle(Point center, double radius, String color, boolean filled) {
+    public Circle(Point center, int radius, Color color, boolean filled) {
         super(color, filled);
         this.center = center;
         this.radius = radius;
@@ -49,13 +52,14 @@ public class Circle extends Shape {
 
     @Override
     public String toString() {
-        String out = "";
-        out += "Circle[center=" + center.toString();
-        out += ",Pos=" + this.Pos.toString();
-        out += ",radius=" + radius;
-        out += ",color=" + super.getColor();
-        out += ",filled=" + super.isFilled() + "]";
-        return out;
+        return "Circle{" +
+                "center=" + center +
+                ", topLeft=" + topLeft.toString() +
+                ", radius=" + radius +
+                ", Pos=" + topLeft +
+                ", velX=" + velX +
+                ", velY=" + velY +
+                '}';
     }
 
     /** func. */
@@ -76,6 +80,39 @@ public class Circle extends Shape {
         return flag;
     }
 
+    public void draw(Graphics g) {
+        Random ran = new Random();
+        if (this.color == Color.white) {
+            this.color = ran.random_Color();
+        }
+        g.setColor(color);
+        int xPos = this.getTopLeft().getPointX();
+        int yPos = this.getTopLeft().getPointY();
+        int radius = this.getRadius();
+        if (color == Color.white) {
+            g.setColor(Color.black);
+            g.drawOval(xPos, yPos, 2*radius, 2*radius);
+        } else {
+            g.fillOval(xPos, yPos, 2*radius, 2*radius);
+        }
+    }
+
+    public void move() {
+        if (topLeft.getPointX() >= 0 && topLeft.getPointX() <= GraphicShapes.LENGTH - 2*radius) {
+            topLeft.setPointX(topLeft.getPointX() + velX);
+        } else {
+            velX = -velX;
+            topLeft.setPointX(topLeft.getPointX() + velX);
+        }
+
+        if (topLeft.getPointY() >= 0 && topLeft.getPointY() <= GraphicShapes.WIDTH - 2*radius) {
+            topLeft.setPointY(topLeft.getPointY() + velY);
+        } else {
+            velY = -velY;
+            topLeft.setPointY(topLeft.getPointY() + velY);
+        }
+    }
+
     public Point getCenter() {
         return center;
     }
@@ -84,19 +121,19 @@ public class Circle extends Shape {
         this.center = center;
     }
 
-    public double getRadius() {
+    public int getRadius() {
         return radius;
     }
 
-    public void setRadius(double radius) {
+    public void setRadius(int radius) {
         this.radius = radius;
     }
 
-    public Point getPos() {
-        return Pos;
+    public Point getTopLeft() {
+        return topLeft;
     }
 
-    public void setPos(Point pos) {
-        Pos = pos;
+    public void setTopLeft(Point topLeft) {
+        this.topLeft = topLeft;
     }
 }

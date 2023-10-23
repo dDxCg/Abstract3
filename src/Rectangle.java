@@ -1,38 +1,39 @@
-import com.sun.nio.sctp.HandlerResult;
+import java.awt.*;
 
 public class Rectangle extends Shape {
-    protected Point topLeft;
-    protected double width;
-    protected double length;
-    public static final double maxSide = 10;
-    public static final double minSide = 1;
+    protected int width;
+    protected int length;
+    public static final int maxSide = 50;
+    public static final int minSide = 20;
 
     public Rectangle() {
         super();
         Random ran = new Random();
-        this.width = ran.double_Random(minSide, maxSide);
-        this.length = ran.double_Random(minSide, maxSide);
-        double xPos = ran.double_Random(0, GraphicShapes.D_LENGTH - length);
-        double yPos = ran.double_Random(0, GraphicShapes.D_WIDTH - width);
+        this.width = ran.int_Random(minSide, maxSide);
+        this.length = ran.int_Random(minSide, maxSide);
+        int xPos = ran.int_Random(0, GraphicShapes.LENGTH - length);
+        int yPos = ran.int_Random(0, GraphicShapes.LENGTH - width);
+        this.velX = ran.int_Random(Shape.MIN_VEL, Shape.MAX_VEL);
+        this.velY = ran.int_Random(Shape.MIN_VEL, Shape.MAX_VEL);
         topLeft = new Point(xPos, yPos);
     }
 
     /** func. */
-    public Rectangle(double width, double length) {
+    public Rectangle(int width, int length) {
         super();
         this.width = width;
         this.length = length;
     }
 
     /** func. */
-    public Rectangle(double width, double length, String color, boolean filled) {
+    public Rectangle(int width, int length, Color color, boolean filled) {
         super(color, filled);
         this.width = width;
         this.length = length;
     }
 
     /** func. */
-    public Rectangle(Point topLeft, double width, double length, String color, boolean filled) {
+    public Rectangle(Point topLeft, int width, int length, Color color, boolean filled) {
         super(color, filled);
         this.topLeft = topLeft;
         this.width = width;
@@ -51,13 +52,13 @@ public class Rectangle extends Shape {
 
     @Override
     public String toString() {
-        String out = "";
-        out += "Rectangle[topLeft=" + topLeft.toString();
-        out += ",width=" + width;
-        out += ",length=" + length;
-        out += ",color=" + color;
-        out += ",filled=" + filled + "]";
-        return out;
+        return "Rectangle{" +
+                "topLeft=" + topLeft +
+                ", width=" + width +
+                ", length=" + length +
+                ", velX=" + velX +
+                ", velY=" + velY +
+                '}';
     }
 
     public Point getTopLeft() {
@@ -68,19 +69,19 @@ public class Rectangle extends Shape {
         this.topLeft = topLeft;
     }
 
-    public double getWidth() {
+    public int getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(int width) {
         this.width = width;
     }
 
-    public double getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(int length) {
         this.length = length;
     }
 
@@ -100,5 +101,39 @@ public class Rectangle extends Shape {
             }
         }
         return flag;
+    }
+
+    public void draw(Graphics g) {
+        Random ran = new Random();
+        if (this.color == Color.white) {
+            this.color = ran.random_Color();
+        }
+        g.setColor(color);
+        int xPos = this.getTopLeft().getPointX();
+        int yPos = this.getTopLeft().getPointY();
+        int width = this.getWidth();
+        int length = this.getLength();
+        if (color == Color.white) {
+            g.setColor(Color.black);
+            g.drawRect(xPos, yPos, length, width);
+        } else {
+            g.fillRect(xPos, yPos, length, width);
+        }
+    }
+
+    public void move() {
+        if (topLeft.getPointX() >= 0 && topLeft.getPointX() <= GraphicShapes.LENGTH - length) {
+            topLeft.setPointX(topLeft.getPointX() + velX);
+        } else {
+            velX = -velX;
+            topLeft.setPointX(topLeft.getPointX() + velX);
+        }
+
+        if (topLeft.getPointY() >= 0 && topLeft.getPointY() <= GraphicShapes.WIDTH - width) {
+            topLeft.setPointY(topLeft.getPointY() + velY);
+        } else {
+            velY = -velY;
+            topLeft.setPointY(topLeft.getPointY() + velY);
+        }
     }
 }

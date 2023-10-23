@@ -1,10 +1,26 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Layer extends JPanel {
+public class Layer extends JPanel{
     private List<Shape> shapes = new ArrayList<>();
+    private Timer timer;
+    public Layer() {
+        timer = new Timer(10, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (int i = 0; i < shapes.size(); ++i) {
+                    shapes.get(i).move();
+                    repaint();
+                }
+            }
+        });
+        timer.start();
+    }
 
     public void addShape(Shape shape) {
         shapes.add(shape);
@@ -41,43 +57,17 @@ public class Layer extends JPanel {
     }
 
     public void paint(Graphics g) {
-        Random ran = new Random();
+        super.paint(g);
+        Graphics2D g2d = (Graphics2D) g;
         for (int i = 0; i < shapes.size(); ++i) {
-            super.paintComponents(g);
-            Color color = ran.random_Color();
-            g.setColor(color);
             if (shapes.get(i) instanceof Circle) {
-                int xPos = (int) (10 * ((Circle) shapes.get(i)).getPos().getPointX());
-                int yPos = (int) (10 * ((Circle) shapes.get(i)).getPos().getPointY());
-                int radius = (int) (10 * ((Circle) shapes.get(i)).getRadius());
-                if (color == Color.white) {
-                    g.setColor(Color.black);
-                    g.drawOval(xPos, yPos, radius, radius);
-                } else {
-                    g.fillOval(xPos, yPos, radius, radius);
-                }
+                ((Circle) shapes.get(i)).draw(g2d);
             } else if (shapes.get(i) instanceof Rectangle) {
-                int xPos = (int) (10 * ((Rectangle) shapes.get(i)).getTopLeft().getPointX());
-                int yPos = (int) (10 * ((Rectangle) shapes.get(i)).getTopLeft().getPointY());
-                int width = (int) (10 * ((Rectangle) shapes.get(i)).getWidth());
-                int length = (int) (10 * ((Rectangle) shapes.get(i)).getLength());
-                if (color == Color.white) {
-                    g.setColor(Color.black);
-                    g.drawRect(xPos, yPos, length, width);
-                } else {
-                    g.fillRect(xPos, yPos, length, width);
-                }
+                ((Rectangle) shapes.get(i)).draw(g2d);
             } else if (shapes.get(i) instanceof Square) {
-                int xPos = (int) (10 * ((Square) shapes.get(i)).getTopLeft().getPointX());
-                int yPos = (int) (10 * ((Square) shapes.get(i)).getTopLeft().getPointY());
-                int side = (int) (10 * ((Square) shapes.get(i)).getSide());
-                if (color == Color.white) {
-                    g.setColor(Color.black);
-                    g.drawRect(xPos, yPos, side, side);
-                } else {
-                    g.fillRect(xPos, yPos, side, side);
-                }
+                ((Square) shapes.get(i)).draw(g2d);
             }
         }
     }
+
 }

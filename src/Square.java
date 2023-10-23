@@ -1,41 +1,43 @@
+import java.awt.*;
+
 public class Square extends Rectangle {
     public Square() {
         super();
         Random ran = new Random();
-        double side = ran.double_Random(Rectangle.minSide, Rectangle.maxSide);
+        int side = ran.int_Random(Rectangle.minSide, Rectangle.maxSide);
         setSide(side);
     }
 
-    public Square(double side) {
+    public Square(int side) {
         super(side, side);
     }
 
-    public Square(double side, String color, boolean filled) {
+    public Square(int side, Color color, boolean filled) {
         super(side, side, color, filled);
     }
 
-    public Square(Point point, double side, String color, boolean filled) {
+    public Square(Point point, int side, Color color, boolean filled) {
         super(point, side, side, color, filled);
     }
 
-    public double getSide() {
+    public int getSide() {
         return super.getWidth();
     }
 
     /** func. */
-    public void setSide(double side) {
+    public void setSide(int side) {
         super.setLength(side);
         super.setWidth(side);
     }
 
     @Override
-    public void setWidth(double side) {
+    public void setWidth(int side) {
         super.setWidth(side);
         super.setLength(side);
     }
 
     @Override
-    public void setLength(double side) {
+    public void setLength(int side) {
         super.setLength(side);
         super.setWidth(side);
     }
@@ -58,16 +60,39 @@ public class Square extends Rectangle {
 
     @Override
     public String toString() {
-        String out = "";
-        out += "Square[topLeft=" + super.getTopLeft().toString();
-        out += ",side=" + super.getWidth();
-        out += ",color=" + super.getColor();
-        out += ",filled=" + super.isFilled() + "]";
-        return out;
+        return "Square{" +
+                "topLeft=" + topLeft +
+                ", side=" + width +
+                ", velX=" + velX +
+                ", velY=" + velY +
+                '}';
     }
 
     @Override
     public Point getTopLeft() {
         return super.getTopLeft();
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        Random ran = new Random();
+        if (this.color == Color.white) {
+            this.color = ran.random_Color();
+        }
+        g.setColor(color);
+        int xPos = this.getTopLeft().getPointX();
+        int yPos = this.getTopLeft().getPointY();
+        int side = this.getSide();
+        if (color == Color.white) {
+            g.setColor(Color.black);
+            g.drawRect(xPos, yPos, side, side);
+        } else {
+            g.fillRect(xPos, yPos, side, side);
+        }
+    }
+
+    @Override
+    public void move() {
+        super.move();
     }
 }
