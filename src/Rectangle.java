@@ -3,8 +3,8 @@ import java.awt.*;
 public class Rectangle extends Shape {
     protected int width;
     protected int length;
-    public static final int maxSide = 50;
-    public static final int minSide = 20;
+    public static final int maxSide = 100;
+    public static final int minSide = 50;
 
     public Rectangle() {
         super();
@@ -12,7 +12,7 @@ public class Rectangle extends Shape {
         this.width = ran.int_Random(minSide, maxSide);
         this.length = ran.int_Random(minSide, maxSide);
         int xPos = ran.int_Random(0, GraphicShapes.LENGTH - length);
-        int yPos = ran.int_Random(0, GraphicShapes.LENGTH - width);
+        int yPos = ran.int_Random(0, GraphicShapes.WIDTH - width);
         this.velX = ran.int_Random(Shape.MIN_VEL, Shape.MAX_VEL);
         this.velY = ran.int_Random(Shape.MIN_VEL, Shape.MAX_VEL);
         topLeft = new Point(xPos, yPos);
@@ -85,9 +85,10 @@ public class Rectangle extends Shape {
         this.length = length;
     }
 
+
     @Override
     public int hashCode() {
-        int hash = 0;
+        int hash;
         hash = (topLeft.hashCode() + "_" + length + "_" + width).hashCode();
         return hash;
     }
@@ -122,14 +123,30 @@ public class Rectangle extends Shape {
     }
 
     public void move() {
-        if (topLeft.getPointX() >= 0 && topLeft.getPointX() <= GraphicShapes.LENGTH - length) {
+        if (topLeft.getPointX() >= 0 && topLeft.getPointX() + length <= GraphicShapes.LENGTH) {
             topLeft.setPointX(topLeft.getPointX() + velX);
         } else {
             velX = -velX;
             topLeft.setPointX(topLeft.getPointX() + velX);
         }
 
-        if (topLeft.getPointY() >= 0 && topLeft.getPointY() <= GraphicShapes.WIDTH - width) {
+        if (topLeft.getPointY() >= 0 && topLeft.getPointY() + width <= GraphicShapes.WIDTH) {
+            topLeft.setPointY(topLeft.getPointY() + velY);
+        } else {
+            velY = -velY;
+            topLeft.setPointY(topLeft.getPointY() + velY);
+        }
+    }
+
+    public void moveGravity() {
+        if (topLeft.getPointX() >= 0 && topLeft.getPointX() + length <= GraphicShapes.LENGTH) {
+            topLeft.setPointX(topLeft.getPointX() + velX);
+        } else {
+            velX = -velX;
+            topLeft.setPointX(topLeft.getPointX() + velX);
+        }
+
+        if (topLeft.getPointY() >= 0 && topLeft.getPointY() + width <= GraphicShapes.WIDTH) {
             topLeft.setPointY(topLeft.getPointY() + velY);
         } else {
             velY = -velY;

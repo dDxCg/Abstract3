@@ -98,14 +98,14 @@ public class Circle extends Shape {
     }
 
     public void move() {
-        if (topLeft.getPointX() >= 0 && topLeft.getPointX() <= GraphicShapes.LENGTH - 2*radius) {
+        if (topLeft.getPointX() >= 0 && topLeft.getPointX() + 2*radius <= GraphicShapes.LENGTH) {
             topLeft.setPointX(topLeft.getPointX() + velX);
         } else {
             velX = -velX;
             topLeft.setPointX(topLeft.getPointX() + velX);
         }
 
-        if (topLeft.getPointY() >= 0 && topLeft.getPointY() <= GraphicShapes.WIDTH - 2*radius) {
+        if (topLeft.getPointY() >= 0 && topLeft.getPointY() + 2*radius <= GraphicShapes.WIDTH) {
             topLeft.setPointY(topLeft.getPointY() + velY);
         } else {
             velY = -velY;

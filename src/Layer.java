@@ -1,16 +1,25 @@
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.geom.Ellipse2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Layer extends JPanel{
+public class Layer extends JPanel {
     private List<Shape> shapes = new ArrayList<>();
     private Timer timer;
+    private boolean gFlag;
+
+    public static final int FRAME_DELAY = 10;
+
     public Layer() {
-        timer = new Timer(10, new ActionListener() {
+        gFlag = false;
+        this.setBackground(Color.white);
+        timer = new Timer(FRAME_DELAY, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < shapes.size(); ++i) {
@@ -22,6 +31,14 @@ public class Layer extends JPanel{
         timer.start();
     }
 
+    public boolean isgFlag() {
+        return gFlag;
+    }
+
+    public void setgFlag(boolean gFlag) {
+        this.gFlag = gFlag;
+    }
+
     public void addShape(Shape shape) {
         shapes.add(shape);
     }
@@ -31,7 +48,68 @@ public class Layer extends JPanel{
         for (int i = 0; i < shapes.size(); ++i) {
             if (shapes.get(i) instanceof Circle) {
                 shapes.remove(shapes.get(i));
+                --i;
             }
+        }
+        if (shapes.isEmpty() == true) {
+            this.removeAll();
+            this.revalidate();
+            this.repaint();
+        }
+    }
+
+    public void removeRectangles() {
+        for (int i = 0; i < shapes.size(); ++i) {
+            if (shapes.get(i) instanceof Rectangle && !((shapes.get(i)) instanceof Square)) {
+                shapes.remove(shapes.get(i));
+                --i;
+            }
+        }
+        if (shapes.isEmpty() == true) {
+            this.removeAll();
+            this.revalidate();
+            this.repaint();
+        }
+    }
+
+    public void removeSquares() {
+        for (int i = 0; i < shapes.size(); ++i) {
+            if (shapes.get(i) instanceof Square) {
+                shapes.remove(shapes.get(i));
+                --i;
+            }
+        }
+        if (shapes.isEmpty() == true) {
+            this.removeAll();
+            this.revalidate();
+            this.repaint();
+        }
+    }
+
+    public void addRandomRec() {
+        Shape s = new Rectangle();
+        shapes.add(s);
+        while (this.removeDuplicates()) {
+            s = new Rectangle();
+            shapes.add(s);
+        }
+    }
+
+    public void addRandomSq() {
+        Shape s = new Square();
+        shapes.add(s);
+        while (this.removeDuplicates()) {
+            s = new Square();
+            shapes.add(s);
+        }
+    }
+
+    public void addRandomCl() {
+        Shape s = new Circle();
+        shapes.add(s);
+        while (this.removeDuplicates()) {
+            s = new Circle();
+            shapes.add(s);
         }
     }
 
@@ -46,14 +124,16 @@ public class Layer extends JPanel{
     }
 
     /** func. */
-    public void removeDuplicates() {
+    public boolean removeDuplicates() {
         for (int i = 0; i < shapes.size(); ++i) {
             for (int j = i + 1; j < shapes.size(); ++j) {
                 if (shapes.get(i).hashCode() == shapes.get(j).hashCode()) {
                     shapes.remove(j);
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     public void paint(Graphics g) {
@@ -69,5 +149,4 @@ public class Layer extends JPanel{
             }
         }
     }
-
 }
