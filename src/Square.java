@@ -95,4 +95,7 @@ public class Square extends Rectangle {
     public void move() {
         super.move();
     }
+
+    @Override
+    public void moveGravity() {super.moveGravity();}
 }

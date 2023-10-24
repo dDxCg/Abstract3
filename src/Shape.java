@@ -9,6 +9,7 @@ public abstract class Shape {
 
     public static final int MIN_VEL = -10;
     public static final int MAX_VEL = 10;
+    public static final int g = 1;
 
     public Shape() {
 
@@ -67,4 +68,5 @@ public abstract class Shape {
     public abstract String toString();
 
     public abstract void move();
+    public abstract void moveGravity();
 }

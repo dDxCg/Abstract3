@@ -152,5 +152,14 @@ public class Rectangle extends Shape {
             velY = -velY;
             topLeft.setPointY(topLeft.getPointY() + velY);
         }
+
+        velY += Shape.g;
+        if (topLeft.getPointY() + width >= GraphicShapes.WIDTH) {
+            velY -= 2*Shape.g;
+            if (velY < 0 ) {
+                velY = 0;
+                velX = 0;
+            }
+        }
     }
 }

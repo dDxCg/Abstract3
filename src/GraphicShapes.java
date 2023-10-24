@@ -58,6 +58,13 @@ public class GraphicShapes extends JFrame implements KeyListener {
             case KeyEvent.VK_3:
                 layer.removeSquares();
                 break;
+            case KeyEvent.VK_G:
+                if (!layer.isgFlag()) {
+                    layer.setgFlag(true);
+                } else {
+                    layer.setgFlag(false);
+                }
+                break;
         }
     }
 }

@@ -113,6 +113,30 @@ public class Circle extends Shape {
         }
     }
 
+    public void moveGravity() {
+        if (topLeft.getPointX() >= 0 && topLeft.getPointX() + 2*radius <= GraphicShapes.LENGTH) {
+            topLeft.setPointX(topLeft.getPointX() + velX);
+        } else {
+            velX = -velX;
+            topLeft.setPointX(topLeft.getPointX() + velX);
+        }
+
+        if (topLeft.getPointY() >= 0 && topLeft.getPointY() + 2*radius <= GraphicShapes.WIDTH) {
+            topLeft.setPointY(topLeft.getPointY() + velY);
+        } else {
+            velY = -velY;
+            topLeft.setPointY(topLeft.getPointY() + velY);
+        }
+        velY += Shape.g;
+        if (topLeft.getPointY() + 2*radius >= GraphicShapes.WIDTH) {
+            velY -= 2*Shape.g;
+            if (velY < 0) {
+                velY = 0;
+                velX = 0;
+            }
+        }
+    }
+
     public Point getCenter() {
         return center;
     }

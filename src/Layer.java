@@ -23,7 +23,11 @@ public class Layer extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < shapes.size(); ++i) {
-                    shapes.get(i).move();
+                    if (gFlag == true) {
+                        shapes.get(i).moveGravity();
+                    } else {
+                        shapes.get(i).move();
+                    }
                     repaint();
                 }
             }
